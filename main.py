@@ -106,10 +106,11 @@ while True:
             print("No tickets found.")
     elif choice == "4":
        search_term = input("Enter the error message to search for: ")
+       clean_search = search_term.lower().replace(" ", "")
        if DATA_FILE.exists():
            with open(DATA_FILE, "r") as file:
                tickets = json.load(file)
-               found_tickets = [ticket for ticket in tickets if search_term.lower() in ticket['error'].lower()]
+               found_tickets = [ticket for ticket in tickets if clean_search in ticket['error'].lower().replace(" ", "")]
                if found_tickets:
                    print("Search Results:")
                    for ticket in found_tickets:
