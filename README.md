@@ -11,7 +11,7 @@ The long-term goal is to create a platform that helps developers and learners di
 The current version is a command-line Python application that can:
 
 - Create error tickets
-- Assign unique ticket IDs
+- Automatically generate and assign ticket IDs
 - Store ticket creation timestamps
 - Save tickets persistently using JSON
 - View previously created tickets
@@ -51,6 +51,6 @@ The project will evolve as my understanding grows.
 
 ## Status
 
- **Early Development**
+**Early Development**
 
 Legacy Navigator is currently a functional command-line prototype and is under active development.
