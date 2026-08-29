@@ -52,8 +52,12 @@ def create_ticket():
 while True:
     show_menu()
     choice = input("Please select an option (1-5): ")
+
+
     if choice == "1":
          create_ticket()
+
+
     elif choice == "2":
         if DATA_FILE.exists():
             with open(DATA_FILE, "r") as file:
@@ -71,6 +75,8 @@ while True:
                    print("No tickets found.")
         else:
             print("No tickets found.")
+
+
     elif choice == "3":
         if DATA_FILE.exists():
             with open(DATA_FILE, "r") as file:
@@ -88,8 +94,21 @@ while True:
                         print(f"Status: {ticket['status']}")
                         print(f"Created At: {ticket['created_at']}")
 
-                        new_status = input("Enter the new status (open/closed): ")
+                        while True:
+                            new_status = input(
+                                "Enter the new status (open/closed): ").lower()
+
+                            if new_status in ["open", "closed"]:
+                                break
+
+                            print("Invalid status. Please enter open or closed.")
+
                         ticket["status"] = new_status
+
+                        if new_status == "closed":
+                            solution = input("What solved the issue? ")
+                            ticket["solution"] = solution
+                            ticket["resolved_at"] = datetime.now().isoformat()
 
                         with open(DATA_FILE, "w") as file:
                             json.dump(tickets, file, indent=4)
@@ -102,8 +121,11 @@ while True:
 
             else:
                 print("No tickets found.")
+
         else:
             print("No tickets found.")
+
+
     elif choice == "4":
        search_term = input("Enter the error message to search for: ")
        clean_search = search_term.lower().replace(" ", "")
@@ -119,14 +141,19 @@ while True:
                        print(f"Severity: {ticket['severity']}")
                        print(f"Status: {ticket['status']}")
                        print(f"Created At: {ticket['created_at']}")
+                       print(f"Solution: {ticket.get('solution', 'No solution recorded')}")
+                       print(f"Resolved At: {ticket.get('resolved_at', 'Not resolved')}")  
                        print()
                else:
                    print("No tickets found.")
        else:
             print("No tickets found.")
+
+
     elif choice == "5":
         print("Exiting the program. Goodbye!")
         break
+
     else:
          print("Invalid option. Please select a valid option (1-5).")
     
